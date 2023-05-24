@@ -1,6 +1,6 @@
 # Cole Weber
 # Mini Sorry Problem
-# 3/21/2023
+# 5/17/2023
 # Problem Definition: The game consists of a board that is 14 spaces long. The first space is START, the last is HOME,
 # and in between are labelled 1 through 12. There is a deck of 13 cards which includes four 1s
 # and 3 each of 2,3,4. The player’s token starts at the START space and a card is drawn from the
@@ -14,23 +14,27 @@ import random
 
 import statistics 
 
+
+
 # Call the game function to get the average amount of turns it takes to get to the home space.
 def main(): 
    # Amount is the amount of games it takes to get to the home space. Change it to calculate any amount you want.
-   amount = 1000000
+   amount = int(input("Enter amount of turns: "))
    totalArr = [] * amount
    oneTotal = []
    twoTotal = []
    threeTotal = []
    fourTotal = []
+   emptyCountTotal = 0
 
    for x in range(amount):
-       turns,one,two,three,four = miniSorry()
+       turns,one,two,three,four,emptyCount = miniSorry()
        oneTotal.append(one)
        twoTotal.append(two)
        threeTotal.append(three)
        fourTotal.append(four)
        totalArr.append(turns)
+       emptyCountTotal = emptyCountTotal + emptyCount
     
 
     # Prints out the calculations using import statistics mean and standard deviation
@@ -38,6 +42,7 @@ def main():
    print(" The standard deviation amount of turns is", statistics.stdev(totalArr))
 
    print(" These are the amount of times these numbers are drawn \n1: ", sum(oneTotal),"2: ", sum(twoTotal),"3: ", sum(threeTotal),"4: ", sum(fourTotal))
+   print(" The deck got shuffled", emptyCountTotal, "time(s)")
 
 def miniSorry():
     turns = 0
@@ -48,6 +53,8 @@ def miniSorry():
     two = 0
     three = 0
     four = 0
+    emptyCount = 0
+    
 
 
     # This loops through the code to check to see what spot the piece is at
@@ -73,9 +80,11 @@ def miniSorry():
         # If the deck is empty it refills the deck
         if not deck:
             deck = deckOriginal[:]
+            emptyCount = emptyCount + 1
+            
         # Counts the amount of turns and returns them at end of program
         turns += 1
-    return turns,one,two,three,four
+    return turns,one,two,three,four,emptyCount
     
 
 if __name__ == '__main__':

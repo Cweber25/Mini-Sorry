@@ -11,19 +11,31 @@
 # and play continues.
 
 import random
-import numpy as np
 import statistics
 
 # Call the game function to get the average amount of turns it takes to get to the home space.
 
 
 def main():
+#    amount = int(input("Enter amount of turns: "))
+   totalArr = []
+   oneTotal = []
+   twoTotal = []
+   threeTotal = []
+   fourTotal = []
    oneA = []
    twoA = []
    threeA = []
    fourA = []
+   emptyCountTotal = 0
    # Amount is the amount of games it takes to get to the home space. Change it to calculate any amount you want.
-   stateArray = miniSorry()
+   stateArray,emptyCountTotal,oneTotal,twoTotal,threeTotal,fourTotal,totalArr = miniSorry()
+
+   print(" The mean amount of turns is", statistics.mean(totalArr))
+   print(" The standard deviation amount of turns is", statistics.stdev(totalArr))
+
+   print(" These are the amount of times these numbers are drawn \n1: ", sum(oneTotal),"2: ", sum(twoTotal),"3: ", sum(threeTotal),"4: ", sum(fourTotal),"\n")
+
 
    
    for states in range(14):
@@ -37,7 +49,14 @@ def main():
                 if num == 4:
                     fourA.append(num)
         print(states, "1 :", len(oneA),"|2 :",len(twoA),"|3 :",len(threeA),"|4 :",len(fourA),"\n")
-#    print(pos, "1 :", len(oneA),"|2 :",len(twoA),"|3 :",len(threeA),"|4 :",len(fourA))
+        oneA = []
+        twoA = []
+        threeA = []
+        fourA = []
+   print("The deck got shuffled", emptyCountTotal, "time(s)\n" )
+
+   
+        
    
 
    
@@ -45,9 +64,16 @@ def main():
     
 
 def miniSorry():
-    amount = 100000
-    # totalArr = [] * amount
+ 
+    amount = int(input("Enter amount of turns: "))
+    totalArr = [] * amount
+    oneTotal = []
+    twoTotal = []
+    threeTotal = []
+    fourTotal = []
+    
     StateArray = [[], [], [], [],[],[],[],[],[],[],[],[],[],[]]
+    emptyCount = 0
     for a in range(amount):
         turns = 0
         spot = 0
@@ -60,6 +86,14 @@ def miniSorry():
             ran = random.choice (deck)
             StateArray[spot].append(ran)
             spot += ran
+            if ran == 1:
+                oneTotal.append(1)
+            if ran == 2:
+                twoTotal.append(1)
+            if ran == 3:
+                threeTotal.append(1)
+            if ran == 4:
+                fourTotal.append(1)
 
             
             # If the number were to move past home then it returns to previous location and removes card from deck
@@ -70,11 +104,17 @@ def miniSorry():
             # If the deck is empty it refills the deck
             if not deck:
                 deck = deckOriginal[:]
+                emptyCount = emptyCount + 1
             # Counts the amount of turns and returns them at end of program
+
+            
             
             turns += 1
+        totalArr.append(turns)
+        
 
-    return StateArray
+    
+    return StateArray,emptyCount,oneTotal,twoTotal,threeTotal,fourTotal,totalArr
             
     
 
