@@ -38,7 +38,7 @@ def main():
         proportions = [count / total if total != 0 else 0 for count in counters]
         print(f"Space {space}:")
         print(f"  Card Counts - 1: {counters[0]}, 2: {counters[1]}, 3: {counters[2]}, 4: {counters[3]}")
-        print(f"  Proportions - 1: {proportions[0]:.2f}, 2: {proportions[1]:.2f}, 3: {proportions[2]:.2f}, 4: {proportions[3]:.2f}")
+        print(f"  Proportions - 1: {proportions[0]:.4f}, 2: {proportions[1]:.4f}, 3: {proportions[2]:.4f}, 4: {proportions[3]:.4f}")
         print()
 
     print(f"The deck was reshuffled {emptyCountTotal} time(s).\n")
