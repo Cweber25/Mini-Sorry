@@ -60,12 +60,12 @@ def miniSorry(amount, spaceCounters):
                 spot = 8
                 slideUsageCount += 1
             elif ran == 3 and spot + ran <= 13:  # Special case: split the 3 card
-                if spot + ran == 5:  # Split to use the slide
+                if spot + ran > 5 and spot + ran < 7:  # Split to use the slide
                     spot = 5  # Move to space 5
                     spot += 3 - (5 - spot)  # Move remaining distance after hitting space 5
                     slideUsageCount += 1
                     splitToSlideCount += 1
-                elif spot + ran == 13:  # Split to reach space 13
+                elif spot + ran == 13:  # Split to reach space 13 (Might not need this)
                     spot = 13
                     splitToSpace13Count += 1
                 else:  # Split to reach any other space
