@@ -9,12 +9,10 @@ def main():
     spaceCounters = [[0, 0, 0, 0] for _ in range(14)]  # Counters for each space and card [space][card]
     emptyCountTotal = 0
     slideUsageCount = 0  # Counter for slide usage
-    splitToSlideCount = 0  # Counter for how often the 3 card is split to use the slide
-    splitToSpace13Count = 0  # Counter for how often the 3 card is split to reach space 13
     fourShortcut = 0  # Counter for how often the four shortcut is used
 
     # Run the game simulation and collect statistics
-    totalArr, spaceCounters, emptyCountTotal, slideUsageCount, splitToSlideCount, splitToSpace13Count, fourShortcut = miniSorry(amount, spaceCounters)
+    totalArr, spaceCounters, emptyCountTotal, slideUsageCount, fourShortcut = miniSorry(amount, spaceCounters)
 
     # Print game statistics
     print("Game Statistics")
@@ -23,8 +21,6 @@ def main():
     print(f"Standard deviation of game length: {statistics.stdev(totalArr):.3f}")
     print(f"Number of times the deck was reshuffled: {emptyCountTotal}")
     print(f"Number of times the slide from space 5 to space 8 was used: {slideUsageCount}")
-    print(f"Number of times the 3 card was split to use the slide: {splitToSlideCount}")
-    print(f"Number of times the 3 card was split to reach space 13: {splitToSpace13Count}")
     print(f"Number of times the spot 2 shotcut was used: {fourShortcut}")
     print("\nCard counts and proportions for each card at each space:")
     print("--------------------------------------------------------")
@@ -45,8 +41,6 @@ def miniSorry(amount, spaceCounters):
     totalArr = []  # List to store game lengths
     emptyCount = 0  # Counter for deck reshuffles
     slideUsageCount = 0  # Counter for slide usage
-    splitToSlideCount = 0  # Counter for how often the 3 card is split to use the slide
-    splitToSpace13Count = 0  # Counter for how often the 3 card is split to reach space 13
     fourShortcut = 0 # Counter for how often the spot 2 shotcut is used
 
     for _ in range(amount):
@@ -62,20 +56,6 @@ def miniSorry(amount, spaceCounters):
             if spot + ran == 5:  # Special case: slide from space 5 to space 8
                 spot = 8
                 slideUsageCount += 1
-            elif ran == 3 and spot == 3:  # Special case: split the 3 card to use the slide on space 5
-                spot = 9
-                slideUsageCount += 1
-                splitToSlideCount += 1
-            elif ran == 3 and spot == 4:  # Special case: split the 3 card to use the slide on space 5
-                spot = 10
-                slideUsageCount += 1
-                splitToSlideCount += 1
-            elif ran == 3 and spot == 11:  # Special case: split the 3 card to reach space 13 from space 11
-                spot = 13
-                splitToSpace13Count += 1
-            elif ran == 3 and spot == 12:  # Special case: split the 3 card to reach space 13 from space 12
-                spot = 13
-                splitToSpace13Count += 1
             elif ran == 4 and spot == 2:  # Special case: if on spot two when 4 is drawn go to spot 10
                 spot = 10
                 fourShortcut += 1
@@ -96,7 +76,7 @@ def miniSorry(amount, spaceCounters):
 
         totalArr.append(turns)  # Store the game length
 
-    return totalArr, spaceCounters, emptyCount, slideUsageCount, splitToSlideCount, splitToSpace13Count, fourShortcut
+    return totalArr, spaceCounters, emptyCount, slideUsageCount, fourShortcut
 
 
 if __name__ == '__main__':
