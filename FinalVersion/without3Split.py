@@ -60,7 +60,7 @@ def miniSorry(amount, spaceCounters):
                 spot = 10
                 fourShortcut += 1
             elif ran == 4 and spot >= 10:  # Special case: if 4 is drawn and it sends you over the limit you move back one instead
-                spot =- 1
+                spot -= 1
             else:  # Regular case: move to a different space
                 spot += ran
 
