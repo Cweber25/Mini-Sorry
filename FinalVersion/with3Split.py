@@ -38,7 +38,7 @@ def main():
     print(f"Number of times the slide from space 5 to space 8 was used: {slideUsageCount}")
     print(f"Number of times the 3 card was split to use the slide: {splitToSlideCount}")
     print(f"Number of times the 3 card was split to reach space 13: {splitToSpace13Count}")
-    print(f"Number of times the spot 2 shotcut was used: {fourShortcut}")
+    print(f"Number of times the spot 2 shortcut was used: {fourShortcut}")
     print("\nCard counts and proportions for each card at each space:")
     print("--------------------------------------------------------")
 
@@ -89,11 +89,11 @@ def miniSorry(amount, spaceCounters):
             elif ran == 3 and spot == 12:  # Special case: split the 3 card to reach space 13 from space 12
                 spot = 13
                 splitToSpace13Count += 1
+            elif ran == 4 and spot >= 10:  # Special case: if 4 is drawn and it sends you over the limit you move back one instead
+                spot -= 1
             elif ran == 4 and spot == 2:  # Special case: if on spot two when 4 is drawn go to spot 10
                 spot = 10
                 fourShortcut += 1
-            elif ran == 4 and spot >= 10:  # Special case: if 4 is drawn and it sends you over the limit you move back one instead
-                spot =- 1
             else:  # Regular case: move to a different space
                 spot += ran
 
